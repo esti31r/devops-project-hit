@@ -17,7 +17,7 @@ public class CICDJobController {
     private CICDJobService ciCdJobService;
 
     @PostMapping
-    public ResponseEntity<CICDJob> createJob(@RequestBody CI/CDJob job) {
+    public ResponseEntity<CICDJob> createJob(@RequestBody CICDJob job) {
         CICDJob createdJob = ciCdJobService.createJob(job);
         return new ResponseEntity<>(createdJob, HttpStatus.CREATED);
     }
