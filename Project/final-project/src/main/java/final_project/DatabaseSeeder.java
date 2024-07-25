@@ -1,54 +1,129 @@
 package final_project;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.boot.CommandLineRunner;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-
 import java.time.LocalDateTime;
 
-@Configuration
-public class DatabaseSeeder {
+import jakarta.persistence.*;
 
-    private static final Logger logger = LoggerFactory.getLogger(DatabaseSeeder.class);
-    private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+@Entity
+@Table(name = "ci_cd_jobs")  // Name of the table in the database
+public class CICDJob {
 
-    @Bean
-    CommandLineRunner initDatabase(UserRepository userRepository, CICDJobRepository ciCdJobRepository) {
-        return args -> {
-            logger.info("Seeding database with initial data...");
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)  // Automatically generate primary key
+    private Long id;
 
-            // Create and save users
-            User user1 = new User("Esti Rabino", "esti.rabino@example.com", LocalDateTime.of(2000, 11, 1, 0, 0), LocalDateTime.of(2000, 11, 21, 0, 0), passwordEncoder.encode("password123"));
-            User user2 = new User("Tomer Idan", "tomer.idan@example.com", LocalDateTime.of(2000, 11, 2, 0, 0), LocalDateTime.of(2000, 11, 21, 0, 0), passwordEncoder.encode("password123"));
-            User user3 = new User("Gal Valter", "gal.valter@example.com", LocalDateTime.of(2000, 11, 3, 0, 0), LocalDateTime.of(2000, 11, 21, 0, 0), passwordEncoder.encode("password123"));
+    @Column(nullable = false)  // Make jobName a required field
+    private String jobName;
 
-            userRepository.save(user1);
-            logger.info("Created User: {}", user1);
+    @Column(nullable = false)  // Make status a required field
+    private String status;
 
-            userRepository.save(user2);
-            logger.info("Created User: {}", user2);
+    @Column(nullable = false)  // Make jobType a required field
+    private String jobType;
 
-            userRepository.save(user3);
-            logger.info("Created User: {}", user3);
+    @Column(name = "created_at", nullable = false, updatable = false)  // Auto set when created
+    private LocalDateTime createdAt;
 
-            // Create and save CI/CD jobs
-            CICDJob job1 = new CICDJob("Job 1", "Pending", "Build");
-            CICDJob job2 = new CICDJob("Job 2", "Running", "Test");
-            CICDJob job3 = new CICDJob("Job 3", "Failed", "Deploy");
+    @Column(name = "updated_at", nullable = false)  // Auto set on update
+    private LocalDateTime updatedAt;
 
-            ciCdJobRepository.save(job1);
-            logger.info("Created CICD Job: {}", job1);
+    // Default constructor
+    public CICDJob() {
+        this.createdAt = LocalDateTime.now();
+        this.updatedAt = LocalDateTime.now();
+    }
 
-            ciCdJobRepository.save(job2);
-            logger.info("Created CICD Job: {}", job2);
+    // Constructor with parameters
+    public CICDJob(String jobName, String status, String jobType, LocalDateTime createdAt, LocalDateTime updatedAt) {
+        this.jobName = jobName;
+        this.status = status;
+        this.jobType = jobType;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+    }
 
-            ciCdJobRepository.save(job3);
-            logger.info("Created CICD Job: {}", job3);
+    public CICDJob(String s, String pending, String build) {
+    }
 
-            logger.info("Database seeding completed.");
-        };
+    // Getters and Setters
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getJobName() {
+        return jobName;
+    }
+
+    public void setJobName(String jobName) {
+        this.jobName = jobName;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getJobType() {
+        return jobType;
+    }
+
+    public void setJobType(String jobType) {
+        this.jobType = jobType;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
+    // Update the updatedAt timestamp before saving to the database
+    @PreUpdate
+    private void updateTimestamp() {
+        this.updatedAt = LocalDateTime.now();
+    }
+
+    // Override equals() and hashCode() methods for entity comparison
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof CICDJob)) return false;
+        CICDJob ciCdJob = (CICDJob) o;
+        return id != null && id.equals(ciCdJob.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
+
+    // toString method for debugging purposes
+    @Override
+    public String toString() {
+        return "CICDJob{" +
+                "id=" + id +
+                ", jobName='" + jobName + '\'' +
+                ", status='" + status + '\'' +
+                ", jobType='" + jobType + '\'' +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
+                '}';
     }
 }
