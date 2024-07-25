@@ -16,7 +16,7 @@ public class DatabaseSeeder {
     private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     @Bean
-    CommandLineRunner initDatabase(UserRepository userRepository, CI/CDJobRepository ciCdJobRepository) {
+    CommandLineRunner initDatabase(UserRepository userRepository, CICDJobRepository ciCdJobRepository) {
         return args -> {
             logger.info("Seeding database with initial data...");
 
