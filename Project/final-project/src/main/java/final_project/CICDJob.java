@@ -1,4 +1,6 @@
-import javax.persistence.*;
+package final_project;
+
+import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
@@ -37,6 +39,9 @@ public class CICDJob {
         this.jobType = jobType;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
+    }
+
+    public CICDJob(String s, String pending, String build) {
     }
 
     // Getters and Setters
