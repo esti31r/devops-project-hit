@@ -11,16 +11,16 @@ public class CICDJob {
     @GeneratedValue(strategy = GenerationType.IDENTITY)  // Automatically generate primary key
     private Long id;
 
-    @Column(nullable = true)  // Make jobName a required field
+    @Column(nullable = false)  // Make jobName a required field
     private String jobName;
 
-    @Column(nullable = true)  // Make status a required field
+    @Column(nullable = false)  // Make status a required field
     private String status;
 
-    @Column(nullable = true)  // Make jobType a required field
+    @Column(nullable = false)  // Make jobType a required field
     private String jobType;
 
-    @Column(name = "createdAt", nullable = true, updatable = true)  // Auto set when created
+    @Column(name = "createdAt", nullable = false, updatable = false)  // Auto set when created
     private LocalDateTime createdAt;
 
     @Column(name = "updated_at", nullable = true)  // Auto set on update
