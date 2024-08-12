@@ -20,7 +20,7 @@ public class CICDJob {
     @Column(nullable = false)  // Make jobType a required field
     private String jobType;
 
-    @Column(name = "created_at", nullable = false, updatable = false)  // Auto set when created
+    @Column(name = "createdAt", nullable = false, updatable = false)  // Auto set when created
     private LocalDateTime createdAt;
 
     @Column(name = "updated_at", nullable = false)  // Auto set on update
@@ -32,6 +32,10 @@ public class CICDJob {
         this.updatedAt = LocalDateTime.now();
     }
 
+    @PrePersist
+    protected void onCreate() {
+        this.createdAt = LocalDateTime.now();
+    }
     // Constructor with parameters
     public CICDJob(String jobName, String status, String jobType, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.jobName = jobName;
