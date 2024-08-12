@@ -12,7 +12,7 @@ import java.util.List;
 @RequestMapping("/api/jobs")
 public class CICDJobController {
 
-    
+
     @Autowired
     private CICDJobService ciCdJobService;
 
