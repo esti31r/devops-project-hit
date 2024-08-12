@@ -11,19 +11,19 @@ public class CICDJob {
     @GeneratedValue(strategy = GenerationType.IDENTITY)  // Automatically generate primary key
     private Long id;
 
-    @Column(nullable = false)  // Make jobName a required field
+    @Column(nullable = true)  // Make jobName a required field
     private String jobName;
 
-    @Column(nullable = false)  // Make status a required field
+    @Column(nullable = true)  // Make status a required field
     private String status;
 
-    @Column(nullable = false)  // Make jobType a required field
+    @Column(nullable = true)  // Make jobType a required field
     private String jobType;
 
-    @Column(name = "createdAt", nullable = false, updatable = false)  // Auto set when created
+    @Column(name = "createdAt", nullable = true, updatable = true)  // Auto set when created
     private LocalDateTime createdAt;
 
-    @Column(name = "updated_at", nullable = false)  // Auto set on update
+    @Column(name = "updated_at", nullable = true)  // Auto set on update
     private LocalDateTime updatedAt;
 
     // Default constructor
@@ -37,7 +37,7 @@ public class CICDJob {
         this.createdAt = LocalDateTime.now();
     }
     // Constructor with parameters
-    public CICDJob(String jobName, String status, String jobType, LocalDateTime createdAt, LocalDateTime updatedAt) {
+    public CICDJob(String jobName, String status, String jobType) {
         this.jobName = jobName;
         this.status = status;
         this.jobType = jobType;
@@ -45,8 +45,6 @@ public class CICDJob {
         this.updatedAt = updatedAt;
     }
 
-    public CICDJob(String s, String pending, String build) {
-    }
 
     // Getters and Setters
     public Long getId() {
