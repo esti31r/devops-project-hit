@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,14 +13,14 @@ public class CICDJobService {
     @Autowired
     private CICDJobRepository ciCdJobRepository;
 
-    // Create a job using DTO
+    // Create a job using the CreateDTO
     public CICDJob createJob(CICDJobCreateDTO createDTO) {
         CICDJob job = new CICDJob();
         job.setJobName(createDTO.getJobName());
-        job.setDescription(createDTO.getDescription());
-        job.setConfig(createDTO.getConfig());
-        job.setCreatedAt(new Date()); // Assuming you have this field in your entity
-        // Set other fields as needed
+        job.setStatus(createDTO.getStatus());  // Set status from DTO
+        job.setJobType(createDTO.getJobType());  // Set jobType from DTO
+        job.setCreatedAt(LocalDateTime.now());  // Auto set the createdAt timestamp
+        job.setUpdatedAt(LocalDateTime.now());  // Set initial updatedAt timestamp
 
         return ciCdJobRepository.save(job);
     }
@@ -56,27 +55,20 @@ public class CICDJobService {
         ciCdJobRepository.deleteById(id);
     }
 
-    // Update a job using DTO
+    // Update a job using the Update DTO
     public CICDJob updateJob(CICDJobUpdateDTO updateDTO) {
-        // Retrieve existing job
         Optional<CICDJob> existingJobOptional = ciCdJobRepository.findById(updateDTO.getId());
         if (existingJobOptional.isPresent()) {
             CICDJob existingJob = existingJobOptional.get();
-            // Update fields
+            // Update fields from the DTO
             existingJob.setJobName(updateDTO.getJobName());
-            existingJob.setDescription(updateDTO.getDescription());
-            existingJob.setConfig(updateDTO.getConfig());
-            // Update other fields as needed
+            existingJob.setStatus(updateDTO.getStatus());  // Update status
+            existingJob.setJobType(updateDTO.getJobType());  // Update jobType
+            // Handle config or any other fields as necessary
 
             return ciCdJobRepository.save(existingJob);
         } else {
-            // Handle the case where the job doesn't exist, e.g., throw an exception
             throw new RuntimeException("Job not found with id: " + updateDTO.getId());
         }
-    }
-
-    protected void onCreate() {
-        Date createdAt = new Date();
-        // You can store the created date in your entity here if needed
     }
 }
