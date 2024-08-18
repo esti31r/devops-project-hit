@@ -14,7 +14,7 @@ public class CICDJobService {
     private CICDJobRepository ciCdJobRepository;
 
     // Create a job using the CreateDTO
-    public CICDJob createJob(CICDJobCreateDTO createDTO) {
+    public CICDJob createJob(CICDJob createDTO) {
         CICDJob job = new CICDJob();
         job.setJobName(createDTO.getJobName());
         job.setStatus(createDTO.getStatus());  // Set status from DTO
