@@ -10,7 +10,7 @@ public class UserService {
     private final UserRepository userRepository;
 
     /**
-     * constructor-based Dependency Injection (DI)
+     * Constructor-based Dependency Injection (DI)
      * @param userRepository
      */
     public UserService(UserRepository userRepository) {
@@ -46,14 +46,17 @@ public class UserService {
      * @throws RuntimeException if id is not in database
      */
     public User updateUser(Long id, User userDetails) {
-       User user = userRepository.findById(id).orElseThrow(()->
-               new RuntimeException("User not found"));
-       user.setJobName(userDetails.getJobName());
-       user.setStatus(userDetails.getStatus());
-       user.setCreatedAt(userDetails.getCreatedAt());
-       user.setUpdatedAt(userDetails.getUpdatedAt());
+        User user = userRepository.findById(id).orElseThrow(() ->
+                new RuntimeException("User not found"));
 
-       return userRepository.save(user);
+        // Update the user details
+        user.setUsername(userDetails.getUsername());
+        user.setEmail(userDetails.getEmail());
+        user.setPhone(userDetails.getPhone());
+        user.setAddress(userDetails.getAddress());
+        user.setPassword(userDetails.getPassword());
+
+        return userRepository.save(user);
     }
 
     public void deleteUser(Long id) {
