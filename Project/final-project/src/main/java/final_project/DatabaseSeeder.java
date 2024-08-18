@@ -22,9 +22,9 @@ public class DatabaseSeeder {
             logger.info("Seeding database with initial data...");
 
             // Create and save users
-            User user1 = new User("Esti Rabino", "esti.rabino@example.com", new Date(2000, 11, 1), new Date(2000, 11, 21), passwordEncoder.encode("password123"));
-            User user2 = new User("Tomer Idan", "tomer.idan@example.com", new Date(2000, 11, 1), new Date(2000, 11, 21), passwordEncoder.encode("password123"));
-            User user3 = new User("Gal Valter", "gal.valter@example.com", new Date(2000, 11, 1), new Date(2000, 11, 21), passwordEncoder.encode("password123"));
+            User user1 = new User("Esti Rabino", "esti.rabino@example.com", "123-456-7890", "123 Main St, City, Country", passwordEncoder.encode("password123"));
+            User user2 = new User("Tomer Idan", "tomer.idan@example.com", "123-456-7890", "456 Another St, City, Country", passwordEncoder.encode("password123"));
+            User user3 = new User("Gal Valter", "gal.valter@example.com", "123-456-7890", "789 Third Ave, City, Country", passwordEncoder.encode("password123"));
 
             userRepository.save(user1);
             logger.info("Created User: {}", user1);
