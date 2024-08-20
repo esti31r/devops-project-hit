@@ -16,7 +16,7 @@ public class CICDJobController {
     @Autowired
     private CICDJobService ciCdJobService;
 
-    @PostMapping
+    @PostMapping("")
     public ResponseEntity<CICDJob> createJob(@RequestBody CICDJob job) {
         CICDJob createdJob = ciCdJobService.createJob(job);
         return new ResponseEntity<>(createdJob, HttpStatus.CREATED);
@@ -29,7 +29,7 @@ public class CICDJobController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    @GetMapping
+    @GetMapping("")
     public List<CICDJob> getAllJobs() {
         return ciCdJobService.getAllJobs();
     }
@@ -52,6 +52,12 @@ public class CICDJobController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteJob(@PathVariable Long id) {
         ciCdJobService.deleteJob(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PatchMapping("{id}")
+    public ResponseEntity<Void> updateJob(@PathVariable Long id, @RequestBody CICDJobUpdateDTO job) {
+        ciCdJobService.updateJob(job);
         return ResponseEntity.noContent().build();
     }
 }
