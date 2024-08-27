@@ -23,7 +23,7 @@ Project
 ├── play-with-docker
 │   ├── Dockerfile  #for Python tests
 │   ├── docker-compose.yml
-│   ├── requirements.txt
+│   └── requirements.txt
 
 
 
