@@ -1,10 +1,7 @@
-
 Project
-│
 ├── Tests
 │   ├── src
 │   │   └── test_all.py
-│
 ├── final-project
 │   ├── src
 │   │   ├── main
@@ -13,16 +10,15 @@ Project
 │   │   ├── resources
 │   │   ├── test
 │   │   └── target
-│   ├── Dockerfile #for CICD server
+│   ├── Dockerfile  # for CICD server
 │   ├── HELP.md
 │   ├── mvnw
 │   ├── mvnw.cmd
 │   └── pom.xml
-│
-├── play-with-docker
-│   ├── Dockerfile  #for Python tests
-│   ├── docker-compose.yml
-│   └── requirements.txt
+└── play-with-docker
+    ├── Dockerfile  # for Python tests
+    ├── docker-compose.yml
+    └── requirements.txt
 
 
 
