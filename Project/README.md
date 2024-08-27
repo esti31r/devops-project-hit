@@ -27,7 +27,7 @@ Project
 
 
 WHAT TO DO?
-1. Clone the repository to your local machine
+1. Clone the repository to your local environment
 2. Navigate to the play-with-docker directory
 3. Build and start the services by running docker-compose up --build
 
