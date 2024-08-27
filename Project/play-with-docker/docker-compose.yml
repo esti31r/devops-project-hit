@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  cd-server:
+    build:
+      context: ../final-project
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+      - redis
+
+  redis:
+    image: redis:latest
+    volumes:
+      - redis-data:/data
+
+  db:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: test_db
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+
+  tester:
+    build:
+      context: .
+    depends_on:
+      - cd-server
+
+volumes:
+  redis-data:
+  postgres-data:
